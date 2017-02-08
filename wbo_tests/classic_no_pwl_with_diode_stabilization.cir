@@ -1,3 +1,5 @@
+** Wien Bridge Oscillator No PWL with Diode Built-in Potential Kick-off and Stabilization 
+
 * RC TUNING
 R2	4	6	10K
 C2	6 	3	16NF
@@ -30,12 +32,12 @@ CP1	4	0	1.5915UF
 EBUFFER	5 0	4 0	1
 ROUT	5	6	10
 .ENDS
-*
+
 * ANALYSIS
 ** Without a PWL signal, the oscillation still starts but at a much later time!
 .TRAN 	0.05MS 80MS
-*
-* VIEW RESULTS
-.PLOT	TRAN 	V(2) V(4)
-.PROBE
+.CONTROL
+RUN
+PLOT	V(2) V(4) 
+.ENDC
 .END

@@ -1,0 +1,21 @@
+* DIODE TRANSIT TIME TESTING 
+
+D1	1	0 DIODE1	
+D2	2	0 DIODE2	
+
+** From ngspice-26 manual.
+** Parameters (chapt. 2.8.1) and functions, either defined within the .param statement or with the .func statement (chapt. 2.9) are evaluated before any simulation is started, that is during the setup of the input and the circuit. Therefore these statements may not contain any simu- lation output (voltage or current vectors), because it is simply not yet available. The syntax is described in chapt. 2.8.5. During the circuit setup all functions are evaluated, all parameters are replaced by their resulting numerical values. Thus it will not be possible to get feedback from a later stage (during or after simulation) to change any of the parameters.
+
+.PARAM diode1tt=12n
+.model	DIODE1	D(Is=0.1p Rs=16 CJO=2p Tt=diode1tt Bv=100 Ibv=0.1p)
+
+.PARAM diode2tt=0.1n
+.model	DIODE2	D(Is=0.1p Rs=16 CJO=2p Tt=diode2tt Bv=100 Ibv=0.1p)
+
+** There's no apparent discrepancy of the curves.
+.TRAN 0.25NS 12NS
+.CONTROL
+RUN
+PLOT V(1) V(2)
+.ENDC
+.END
